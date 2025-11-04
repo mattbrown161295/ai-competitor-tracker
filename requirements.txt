@@ -1,0 +1,38 @@
+# Core Web Scraping
+requests==2.31.0
+beautifulsoup4==4.12.3
+lxml==5.1.0
+playwright==1.40.0
+
+# HTTP & Session Management
+requests-cache==1.1.1
+urllib3==2.1.0
+
+# Content Processing
+python-dateutil==2.8.2
+pytz==2023.3
+feedparser==6.0.10
+
+# Data Storage & Export
+pandas==2.1.4
+openpyxl==3.1.2
+
+# Web Dashboard
+flask==3.0.0
+jinja2==3.1.2
+
+# Monitoring & Logging
+loguru==0.7.2
+
+# Configuration
+pyyaml==6.0.1
+python-dotenv==1.0.0
+
+# Testing
+pytest==7.4.3
+pytest-mock==3.12.0
+responses==0.24.1
+
+# Utilities
+tenacity==8.2.3
+tqdm==4.66.1

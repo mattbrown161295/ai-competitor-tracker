@@ -1,0 +1,175 @@
+# AI Competitor Intelligence Tracker Configuration
+
+# Scraping Settings
+scraping:
+  # Request delays (seconds)
+  min_delay: 2
+  max_delay: 5
+
+  # Retry configuration
+  max_retries: 3
+  retry_backoff_factor: 2
+
+  # Timeout settings (seconds)
+  request_timeout: 30
+
+  # Concurrent requests
+  max_workers: 5
+
+  # User agents rotation
+  user_agents:
+    - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    - "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
+
+# Target Sources Configuration
+sources:
+  tier1:
+    - name: "OpenAI"
+      url: "https://openai.com/blog"
+      rss: "https://openai.com/blog/rss.xml"
+      selectors:
+        article: "article.post"
+        title: "h1, .post-title"
+        date: "time, .post-date"
+        content: ".post-content, article p"
+      priority: "critical"
+
+    - name: "Google AI"
+      url: "https://ai.googleblog.com"
+      rss: "https://ai.googleblog.com/feeds/posts/default"
+      selectors:
+        article: "article, .post"
+        title: "h1, .post-title"
+        date: ".published, time"
+        content: ".post-body"
+      priority: "critical"
+
+    - name: "Microsoft AI"
+      url: "https://blogs.microsoft.com/ai/"
+      selectors:
+        article: "article, .blog-post"
+        title: "h1, .entry-title"
+        date: ".entry-date, time"
+        content: ".entry-content"
+      priority: "critical"
+
+    - name: "Anthropic"
+      url: "https://www.anthropic.com/news"
+      selectors:
+        article: "article, .news-item"
+        title: "h1, h2"
+        date: "time, .date"
+        content: ".content, article p"
+      priority: "critical"
+
+  tier2:
+    - name: "Meta AI"
+      url: "https://ai.meta.com/blog/"
+      selectors:
+        article: "article"
+        title: "h1, h2"
+        date: "time"
+        content: ".content"
+      priority: "high"
+
+    - name: "DeepMind"
+      url: "https://deepmind.google/discover/blog/"
+      selectors:
+        article: "article"
+        title: "h1"
+        date: "time"
+        content: ".article-content"
+      priority: "high"
+
+    - name: "Hugging Face"
+      url: "https://huggingface.co/blog"
+      selectors:
+        article: "article"
+        title: "h1"
+        date: "time"
+        content: ".prose"
+      priority: "high"
+
+  tier3:
+    - name: "TechCrunch AI"
+      url: "https://techcrunch.com/category/artificial-intelligence/"
+      selectors:
+        article: "article"
+        title: "h2.post-block__title"
+        date: "time"
+        content: ".article-content"
+      priority: "medium"
+
+    - name: "VentureBeat AI"
+      url: "https://venturebeat.com/ai/"
+      selectors:
+        article: "article"
+        title: "h1, h2"
+        date: "time"
+        content: ".article-content"
+      priority: "medium"
+
+# Content Processing
+processing:
+  # Duplicate detection
+  content_hash_algorithm: "sha256"
+  similarity_threshold: 0.85
+
+  # Content validation
+  min_content_length: 100
+  max_content_length: 50000
+
+  # Keyword filtering for relevance
+  ai_keywords:
+    - "artificial intelligence"
+    - "machine learning"
+    - "deep learning"
+    - "neural network"
+    - "transformer"
+    - "GPT"
+    - "LLM"
+    - "large language model"
+    - "AI model"
+    - "generative AI"
+    - "chatbot"
+    - "computer vision"
+    - "natural language processing"
+    - "NLP"
+
+# Reporting Configuration
+reporting:
+  formats:
+    - "markdown"
+    - "json"
+    - "html"
+    - "csv"
+
+  output_dir: "data/reports"
+
+  # Executive report settings
+  max_summary_items: 10
+  include_metrics: true
+  include_charts: true
+
+# Database/Storage
+storage:
+  cache_dir: "data/processed"
+  raw_data_dir: "data/raw"
+  cache_ttl_days: 7
+
+# Logging
+logging:
+  level: "INFO"
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message}"
+  rotation: "100 MB"
+  retention: "30 days"
+  log_dir: "logs"
+
+# Dashboard Settings
+dashboard:
+  host: "127.0.0.1"
+  port: 5000
+  debug: true
+  auto_refresh_seconds: 300
